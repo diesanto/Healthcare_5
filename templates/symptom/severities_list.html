@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card border-info card-outline">
+            <div class="card-header">
+                <h3 class="card-title">Symptom Severities List</h3>
+            </div>
+
+        {% if severities %}
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8 justify-content-start">
+                        <!-- Button trigger modal -->
+                        <p></p>
+                    </div>
+                    <div class="col-md-4">
+                        <form action="#">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Search" name="search">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="submit"title="Search" alt="Search"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Symptom</th>
+                            <th>Weight</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for severity in severities.items %}
+                            <tr>
+                                <td>{{ severity.id}}</td>
+                                <td>{{ severity.symptom}}</td>
+                                <td>{{ severity.weight}}</td>
+                                <td>
+
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+                <div class="d-flex justify-content-center">
+                <ul class="pagination">
+                    <!-- previous page -->
+                    {% if severities.has_prev %}
+                    <li>
+                        <a href="{{ url_for('symptom_severities_list', page=severities.prev_num) }}">&laquo; </a>
+                    </li>
+                    {% endif %}
+
+                    <!-- all page numbers -->
+                    {% for page_num in severities.iter_pages() %}
+                        {% if page_num %}
+                            {% if page_num != severities.page %}
+                                <li>
+                                    <a href="{{ url_for('symptom_severities_list', page=page_num) }}">{{ page_num }}</a>
+                                </li>
+                            {% else %}
+                                <li class="active">
+                                    <a href="#">{{ page_num }}</a>
+                                </li>
+                            {% endif %}
+                        {% else %}
+                            <li>
+                                <span style="white-space; nowrap; overflow: hidden; text-overflow: ellipsis">…</span>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    <!-- next page -->
+                    {% if severities.has_next %}
+                    <li>
+                        <a href="{{ url_for('symptom_severities_list', page=severities.next_num) }}">&raquo; </a>
+                    </li>
+                    {% endif %}
+                </ul>
+                </div>
+            </div>
+
+        {% else %}
+            <h2>No Disease(s) Found</h2>
+        {% endif %}
+
+        </div>
+    </div>
+</div>      
+{% endblock %}

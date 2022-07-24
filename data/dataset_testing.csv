@@ -1,0 +1,9 @@
+Disease,Symptom_1,Symptom_2,Symptom_3,Symptom_4,Symptom_5,Symptom_6,Symptom_7,Symptom_8,Symptom_9,Symptom_10,Symptom_11,Symptom_12,Symptom_13,Symptom_14,Symptom_15,Symptom_16,Symptom_17
+Fungal infection,itching, nodal_skin_eruptions, dischromic _patches,,,,,,,,,,,,,,
+Fungal infection,itching, skin_rash, dischromic _patches,,,,,,,,,,,,,,
+Allergy, continuous_sneezing, shivering, watering_from_eyes,,,,,,,,,,,,,,
+GERD, stomach_pain, acidity, ulcers_on_tongue, vomiting, chest_pain,,,,,,,,,,,,
+Chronic cholestasis,itching, vomiting, yellowish_skin, nausea, loss_of_appetite, abdominal_pain,,,,,,,,,,,
+Drug Reaction, skin_rash, stomach_pain, burning_micturition, spotting_ urination,,,,,,,,,,,,,
+Drug Reaction,itching, skin_rash, stomach_pain, burning_micturition, spotting_ urination,,,,,,,,,,,,
+Peptic ulcer diseae, vomiting, loss_of_appetite, abdominal_pain, passage_of_gases, internal_itching,,,,,,,,,,,,

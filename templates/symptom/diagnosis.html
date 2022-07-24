@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card border-info card-outline">
+            <div class="card-header">
+                <h3 class="card-title">Diseases List</h3>
+            </div>
+
+        {% if severities %}  
+            <form action="{{ url_for('diagnosis') }}" method="POST" name="form-posts">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="symptoms">Pilih Symptom :</label>
+                        <select class="form-control" id="select-field" name="symptoms" id="symptom" multiple>
+                            {% for severity in severities %}
+                                <option value="{{ severity.weight}}">{{ severity.symptom}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        {% if symptoms %}
+                            {% for symptom in symptoms %}
+                                <p>{{ symptom }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="table-responsive">
+                        {% if predicts %}
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Methode</th>
+                                    <th>Diagnosis</th>
+                                    <th width="50%">Description</th>
+                                    <th>Precaution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1.</td>
+                                    <td>CNN</td>
+                                    <td>{{ predicts.pred_tf }}</td>
+                                    <td>{{ predicts.disease_tf.description }}</td>
+                                    <td>
+                                        <ul>
+                                            <li>{{ predicts.disease_tf.precaution_1 }}</li>
+                                            <li>{{ predicts.disease_tf.precaution_2 }}</li>
+                                            <li>{{ predicts.disease_tf.precaution_3 }}</li>
+                                            <li>{{ predicts.disease_tf.precaution_4 }}</li>
+                                        </ul>                                      
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2.</td>
+                                    <td>KNN</td>
+                                    <td>{{ predicts.pred_knn }}</td>
+                                    <td>{{ predicts.disease_knn.description }}</td>
+                                    <td>
+                                        <ul>
+                                            <li>{{ predicts.disease_knn.precaution_1 }}</li>
+                                            <li>{{ predicts.disease_knn.precaution_2 }}</li>
+                                            <li>{{ predicts.disease_knn.precaution_3 }}</li>
+                                            <li>{{ predicts.disease_knn.precaution_4 }}</li>
+                                        </ul>                                      
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3.</td>
+                                    <td>SVM</td>
+                                    <td>{{ predicts.pred_svc }}</td>
+                                    <td>{{ predicts.disease_svc.description }}</td>
+                                    <td>
+                                        <ul>
+                                            <li>{{ predicts.disease_svc.precaution_1 }}</li>
+                                            <li>{{ predicts.disease_svc.precaution_2 }}</li>
+                                            <li>{{ predicts.disease_svc.precaution_3 }}</li>
+                                            <li>{{ predicts.disease_svc.precaution_4 }}</li>
+                                        </ul>                                      
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4.</td>
+                                    <td>Naive Bayes</td>
+                                    <td>{{ predicts.pred_nb }}</td>
+                                    <td>{{ predicts.disease_nb.description }}</td>
+                                    <td>
+                                        <ul>
+                                            <li>{{ predicts.disease_nb.precaution_1 }}</li>
+                                            <li>{{ predicts.disease_nb.precaution_2 }}</li>
+                                            <li>{{ predicts.disease_nb.precaution_3 }}</li>
+                                            <li>{{ predicts.disease_nb.precaution_4 }}</li>
+                                        </ul>                                      
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        {% endif %}
+                    </div>             
+                </div>
+                <div class="card-footer">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>               
+            </form>
+        {% else %}
+            <h2>No Disease(s) Found</h2>
+        {% endif %}
+         </div>
+    </div>
+</div>     
+{% endblock %}

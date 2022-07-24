@@ -1,0 +1,27 @@
+Label Actual :  ['Fungal infection' 'Fungal infection' 'Allergy' 'GERD'
+ 'Chronic cholestasis' 'Drug Reaction' 'Drug Reaction' 'Peptic ulcer diseae']
+Hasil Prediksi KNN : ['Fungal infection' 'Fungal infection' 'Allergy' 'GERD'
+ 'Chronic cholestasis' 'Drug Reaction' 'Drug Reaction'
+ 'Peptic ulcer diseae']
+KNN F1-score% = 100.0 | KNN Accuracy% = 100.0
+
+Label Actual :  ['Fungal infection' 'Fungal infection' 'Allergy' 'GERD'
+ 'Chronic cholestasis' 'Drug Reaction' 'Drug Reaction' 'Peptic ulcer diseae']
+Hasil Prediksi SVC : ['Fungal infection' 'Fungal infection' 'Allergy' 'GERD'
+ 'Chronic cholestasis' 'Dimorphic hemmorhoids(piles)' 'Drug Reaction'
+ 'Peptic ulcer diseae']
+SVC F1-score% = 80.95238095238095 | SVC Accuracy% = 87.5
+
+Label Actual :  ['Fungal infection' 'Fungal infection' 'Allergy' 'GERD'
+ 'Chronic cholestasis' 'Drug Reaction' 'Drug Reaction' 'Peptic ulcer diseae']
+Hasil Prediksi Naive Bayes : ['Fungal infection' 'Fungal infection' 'Allergy' 'Hypertension'
+ 'Chronic cholestasis' 'AIDS' 'Drug Reaction' 'Peptic ulcer diseae']
+Naive Bayes F1-score% = 58.33333333333333 | Naive Bayes Accuracy% = 75.0
+
+Label Actual :  [15 15  4 16  9 14 14 33]
+['Fungal infection' 'Fungal infection' 'Allergy' 'GERD' 'Chronic cholestasis' 'Drug Reaction' 'Drug Reaction'
+ 'Peptic ulcer diseae']
+Label Predicted :  [15 15  4 16  9 14 14 33]
+['Fungal infection' 'Fungal infection' 'Allergy' 'GERD' 'Chronic cholestasis' 'Drug Reaction' 'Drug Reaction'
+ 'Peptic ulcer diseae']
+RNN Score :  [0.0003064862103201449, 1.0]

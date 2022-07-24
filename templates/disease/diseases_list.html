@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card border-info card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">Diseases List</h3>
+                </div>
+                <!-- /.card-header -->
+        {% if diseases %} 
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8 justify-content-start">
+                            <!-- Button trigger modal -->
+                            <p></p>
+                        </div>
+                        <div class="col-md-4">
+                            <form action="#">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Search" name="search">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="submit"title="Search" alt="Search"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Disease</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for disease in diseases.items %}
+                                <tr>
+                                    <td>{{ disease.id}}</td>
+                                    <td>{{ disease.disease}}</td>
+                                    <td>{{ disease.description}}</td>
+                                    <td></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+
+            <div class="card-footer">
+                <div class="d-flex justify-content-center">
+                    <ul class="pagination">
+                        <!-- previous page -->
+                        {% if diseases.has_prev %}
+                        <li>
+                            <a href="{{ url_for('diseases_list', page=diseases.prev_num) }}">&laquo; </a>
+                        </li>
+                        {% endif %}
+            
+                        <!-- all page numbers -->
+                        {% for page_num in diseases.iter_pages() %}
+                            {% if page_num %}
+                                {% if page_num != diseases.page %}
+                                    <li>
+                                        <a href="{{ url_for('diseases_list', page=page_num) }}">{{ page_num }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="active">
+                                        <a href="#">{{ page_num }}</a>
+                                    </li>
+                                {% endif %}
+                            {% else %}
+                                <li>
+                                    <span style="white-space; nowrap; overflow: hidden; text-overflow: ellipsis">…</span>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+            
+                        <!-- next page -->
+                        {% if diseases.has_next %}
+                        <li>
+                            <a href="{{ url_for('diseases_list', page=diseases.next_num) }}">&raquo; </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        {% else %}
+            <h2>No Disease(s) Found</h2>
+        {% endif %}
+        
+        </div>
+    </div>
+</div>   
+{% endblock %}
