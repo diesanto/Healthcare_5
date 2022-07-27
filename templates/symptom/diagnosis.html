@@ -5,25 +5,28 @@
     <div class="col-sm-12">
         <div class="card border-info card-outline">
             <div class="card-header">
-                <h3 class="card-title">Diseases List</h3>
+                <h3 class="card-title">Diagnosis</h3>
             </div>
 
         {% if severities %}  
             <form action="{{ url_for('diagnosis') }}" method="POST" name="form-posts">
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="symptoms">Pilih Symptom :</label>
+                        <label for="symptoms">Symptom :</label>
                         <select class="form-control" id="select-field" name="symptoms" id="symptom" multiple>
                             {% for severity in severities %}
-                                <option value="{{ severity.weight}}">{{ severity.symptom}}</option>
+                                <option value="{{ severity.weight}}-{{ severity.symptom}}">{{ severity.symptom}}</option>
                             {% endfor %}
                         </select>
-                    </div>
+                    </div><br/>
                     <div class="form-group">
                         {% if symptoms %}
+                        <label for="symptoms"><b>Symptom Selected :</b></label>
+                        <ul>
                             {% for symptom in symptoms %}
-                                <p>{{ symptom }}</p>
+                                <li>{{ symptom }}</li>
                             {% endfor %}
+                        </ul>
                         {% endif %}
                     </div>
                     <div class="table-responsive">

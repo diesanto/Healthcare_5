@@ -5,8 +5,8 @@ import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score, accuracy_score, confusion_matrix
 
-df = pd.read_csv('data/dataset_training.csv')
-weight = pd.read_csv('data/Symptom-severity.csv')
+df = pd.read_csv('./data/dataset_training.csv')
+weight = pd.read_csv('./data/Symptom-severity.csv')
 
 # Mendapatkan nama kolom dari data frame
 cols = df.columns
@@ -53,8 +53,8 @@ y_train_c = to_categorical(y_train_e, num_classes = 41)
 y_test_e = encoder.fit_transform(y_test)
 y_test_c = to_categorical(y_test_e, num_classes = 41)
 
-joblib.dump(encoder, "data/encoder.pkl")
-np.save('data/classes.npy', encoder.classes_)
+joblib.dump(encoder, "./data/encoder.pkl")
+np.save('./data/classes.npy', encoder.classes_)
 
 #Building the RNN
 import tensorflow as tf
@@ -69,9 +69,9 @@ model = tf.keras.Sequential([
 
 model.compile(optimizer='adam', loss='mean_squared_error', metrics = ['accuracy'])
 
-# Fitting the RNN to the Training set
-epoch = 1000 
+# Fitting the CNN to the Training set
+epoch = 2000 
 batch_size = 32
 model.fit(x_train, y_train_c, epochs=epoch,batch_size=batch_size)
 
-model.save('data/healthcare_tf.h5')
+model.save('./data/healthcare_tf.h5')

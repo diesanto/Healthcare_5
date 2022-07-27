@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-from sklearn.metrics import f1_score, accuracy_score, confusion_matrix
 import joblib
 
 df_testing = pd.read_csv('data/dataset_testing.csv')
@@ -39,26 +38,29 @@ df_testing['Disease'].unique()
 data = df_testing.iloc[:,1:].values
 labels = df_testing['Disease'].values
 
-# Unpickle classifier KNN
-knn = joblib.load("data/knn.pkl")
-pred_knn = knn.predict(data)
+from sklearn.preprocessing import LabelEncoder
+from tensorflow.keras.utils import to_categorical
 
-print('Label Actual : ', labels)
-print('Hasil Prediksi KNN :', pred_knn)
-print('KNN F1-score% =', f1_score(labels, pred_knn, average='macro')*100, '|', 'KNN Accuracy% =', accuracy_score(labels, pred_knn)*100)
+from tensorflow import keras
 
-# Unpickle classifier SVC
-svc = joblib.load("data/svc.pkl")
-pred_svc = svc.predict(data)
+model = keras.models.load_model('./data/healthcare_tf.h5')
 
-print('Label Actual : ', labels)
-print('Hasil Prediksi SVC :', pred_svc)
-print('SVC F1-score% =', f1_score(labels, pred_svc, average='macro')*100, '|', 'SVC Accuracy% =', accuracy_score(labels, pred_svc)*100)
+encoder = joblib.load("./data/encoder.pkl")
 
-# Unpickle classifier Naive Bayes
-nb = joblib.load("data/nb.pkl")
-pred_nb = nb.predict(data)
+labels_e = encoder.transform(labels)
+labels_c = to_categorical(labels_e, num_classes = 41)
 
-print('Label Actual : ', labels)
-print('Hasil Prediksi Naive Bayes :', pred_nb)
-print('Naive Bayes F1-score% =', f1_score(labels, pred_nb, average='macro')*100, '|', 'Naive Bayes Accuracy% =', accuracy_score(labels, pred_nb)*100)
+score = model.evaluate(data, labels_c, batch_size=32)
+
+pred_tf = model.predict(data)
+
+actual = np.argmax(labels_c, axis=1)
+predicted = np.argmax(pred_tf, axis=1)
+
+print('Label Actual : ', actual)
+print(encoder.inverse_transform(actual))
+
+print('Label Predicted : ', predicted)
+print(encoder.inverse_transform(predicted))
+
+print('CNN Score : ', score)

@@ -26,7 +26,7 @@ db = SQLAlchemy(app)
 
 class Disease(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    disease = db.Column(db.String(20), index=True, unique=True)
+    disease = db.Column(db.String(25), index=True, unique=True)
     description = db.Column(db.Text())
     
     def to_json(self):
@@ -38,7 +38,7 @@ class Disease(db.Model):
 
 class SymptomSeverity(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    symptom = db.Column(db.String(20), index=True, unique=True)
+    symptom = db.Column(db.String(50), index=True, unique=True)
     weight = db.Column(db.Integer)
     
     def to_json(self):
@@ -70,6 +70,7 @@ class SymptomPrecaution(db.Model):
 @app.route('/index')
 def index():
     return render_template('index.html')
+    # return redirect('/diagnosis')
 
 @app.route('/diseases_list', methods=['GET'], defaults={"page": 1})
 @app.route('/diseases_list/<int:page>', methods=['GET'])
@@ -93,11 +94,15 @@ def diagnosis():
     symptoms = []
     predicts = {}
     if request.method == 'POST': 
-        symptoms = request.form.getlist('symptoms') 
-        x = [[int(symptoms[i]) if i < len(symptoms) else 0 for i in range(17)]]
+        symptoms = request.form.getlist('symptoms')
+        
+        # x = [[int(symptoms[i]) if i < len(symptoms) else 0 for i in range(17)]]
+        x = [[int(symptoms[i].split('-',1)[0]) if i < len(symptoms) else 0 for i in range(17)]]
+        y = [i.split('-',1)[1] for i in symptoms]
+        symptoms = y
 
         # Unpickle classifier KNN
-        knn = joblib.load("data/knn.pkl")
+        knn = joblib.load("data/knn_mink.pkl")
         predicts['pred_knn'] = knn.predict(x)[0]
         predicts['disease_knn'] = Disease.query \
                                 .join(SymptomPrecaution, Disease.disease == SymptomPrecaution.disease) \

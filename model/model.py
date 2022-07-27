@@ -12,8 +12,8 @@ import seaborn as sns
 
 import joblib
 
-df = pd.read_csv('data/dataset_training.csv')
-weight = pd.read_csv('data/Symptom-severity.csv')
+df = pd.read_csv('./data/dataset_training.csv')
+weight = pd.read_csv('./data/Symptom-severity.csv')
 
 # Mendapatkan nama kolom dari data frame
 cols = df.columns
@@ -53,7 +53,7 @@ print(x_train.shape, x_test.shape, y_train.shape, y_test.shape)
 
 svc = SVC()
 svc.fit(x_train, y_train)
-joblib.dump(svc, "data/svc.pkl")
+joblib.dump(svc, "./data/svc.pkl")
 
 pred_svc = svc.predict(x_test)
 # print(pred_svc)
@@ -64,7 +64,7 @@ print('SVC F1-score% =', f1_score(y_test, pred_svc, average='macro')*100, '|', '
 
 nb = GaussianNB() 
 nb.fit(x_train, y_train)
-joblib.dump(nb, "data/nb.pkl")
+joblib.dump(nb, "./data/nb.pkl")
 
 pred_nb = nb.predict(x_test)
 # print(pred_nb)
@@ -73,13 +73,12 @@ pred_nb = nb.predict(x_test)
 conf_mat = confusion_matrix(y_test, pred_nb)
 print('Naive Bayes F1-score% =', f1_score(y_test, pred_nb, average='macro')*100, '|', 'Naive Bayes Accuracy% =', accuracy_score(y_test, pred_nb)*100)
 
-knn = KNeighborsClassifier(n_neighbors = 2, p=2)
+knn = KNeighborsClassifier(n_neighbors = 4, p=2)
 knn.fit(x_train, y_train)
-joblib.dump(knn, "data/knn.pkl")
+joblib.dump(knn, "./data/knn.pkl")
 
 pred_knn = knn.predict(x_test)
 # print(pred_knn)
-
 
 # F1-score% = 98.93734129768748 | Accuracy% = 98.91598915989161
 conf_mat = confusion_matrix(y_test, pred_knn)
